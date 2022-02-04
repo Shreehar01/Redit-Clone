@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginRequestPayload: LoginRequestPayload;
   isError: boolean;
-  registerSuccessMessage: string;
+  registerSuccessMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
     this.loginRequestPayload = {

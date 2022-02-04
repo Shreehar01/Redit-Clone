@@ -7,7 +7,8 @@ import { HttpEvent } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
-
+import { switchMap } from 'rxjs';
+import { LoginResponse } from './auth/login/login-response.payload';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,7 @@ export class TokenInterceptor implements HttpInterceptor{
     constructor(public authService: AuthService){
 
     }
+    
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
         const jwtToken =  this.authService.getJwtToken()
         if (jwtToken){
@@ -39,7 +41,7 @@ export class TokenInterceptor implements HttpInterceptor{
             this.refreshTokenSubject.next(null);
 
             return this.authService.refreshToken().pipe(
-                switchMap((refreshTokenResponse: LoginResponse) =>{
+                switchMap((refreshTokenResponse: LoginResponse) => {
                     this.isTokenRefreshing = false;
                     this.refreshTokenSubject.next(refreshTokenResponse.authenticationToken);
                     return next.handle(this.addToken(req, refreshTokenResponse.authenticationToken))
