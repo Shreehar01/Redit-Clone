@@ -54,9 +54,9 @@ export class VoteButtonComponent implements OnInit {
     this.votePayload.postId = this.post.id;
     this.voteService.vote(this.votePayload).subscribe( () => {
       this.updateVoteDetails();
-    }, error => {
+    }, (error: { error: { message: string | undefined; }; }) => {
       this.toastr.error(error.error.message);
-      throwError(erorr);
+      throwError(error);
     })
   }
 

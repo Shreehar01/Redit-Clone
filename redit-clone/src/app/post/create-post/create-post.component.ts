@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { PostService } from 'src/app/shared/post.service';
+import { SubredditModel } from 'src/app/subreddit/subreddit-response';
+import { SubredditService } from 'src/app/subreddit/subreddit.service';
 import { CreatePostPayload } from './create-post.payload';
 
 @Component({
@@ -46,10 +48,10 @@ export class CreatePostComponent implements OnInit {
 
 
   createPost(){
-    this.postPayload.postName = this.createPost.get('postName').value;
-    this.postPayload.description = this.createPost.get('description').value;
-    this.postPayload.subredditName = this.createPost.get('url').value;
-    this.postPayload.url = this.createPost.get('subredditName').value;
+    this.postPayload.postName = this.createPostForm.get('postName')?.value;
+    this.postPayload.description = this.createPostForm.get('description')?.value;
+    this.postPayload.subredditName = this.createPostForm.get('url')?.value;
+    this.postPayload.url = this.createPostForm.get('subredditName')?.value;
 
 
     this.postService.createPost(this.postPayload).subscribe((data) =>{

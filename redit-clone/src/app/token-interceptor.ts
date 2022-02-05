@@ -4,7 +4,7 @@ import { AuthService } from './auth/shared/auth.service';
 import { HttpRequest } from '@angular/common/http';
 import { HttpHandler } from '@angular/common/http';
 import { HttpEvent } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, filter, Observable, take, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
 import { switchMap } from 'rxjs';
@@ -45,6 +45,14 @@ export class TokenInterceptor implements HttpInterceptor{
                     this.isTokenRefreshing = false;
                     this.refreshTokenSubject.next(refreshTokenResponse.authenticationToken);
                     return next.handle(this.addToken(req, refreshTokenResponse.authenticationToken))
+                })
+            )
+        } else{
+            return this.refreshTokenSubject.pipe(
+                filter(result => result !== null),
+                take(1),
+                switchMap((res) => {
+                    return next.handle(this.addToken(req, this.authService.getJwtToken()))
                 })
             )
         }

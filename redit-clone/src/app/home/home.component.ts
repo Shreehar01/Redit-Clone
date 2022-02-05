@@ -14,10 +14,10 @@ export class HomeComponent implements OnInit {
   faArrowDown = faArrowDown;
   faComments = faComments;
 
-  posts$: Array<PostModel> = [];
+  posts: Array<PostModel> = [];
   constructor(private postService: PostService) { 
     this.postService.getAllPosts().subscribe(post => {
-      this.posts$ = post;
+      this.posts = post;
     });
   }
 

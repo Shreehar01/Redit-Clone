@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
+import { CommentPayload } from 'src/app/comment/comment.payload';
+import { CommentService } from 'src/app/comment/comment.service';
 import { PostModel } from 'src/app/shared/post-model';
 import { PostService } from 'src/app/shared/post.service';
 
@@ -52,7 +54,7 @@ export class ViewPostComponent implements OnInit {
 
 
   private getPostById(){
-    this.postService.getAllPosts(this.postId).subscribe(data => {
+    this.postService.getPost(this.postId).subscribe(data => {
       this.post = data;
     }, error => {
       throwError(error);
