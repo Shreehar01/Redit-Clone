@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -24,6 +23,7 @@ import { ListSubredditsComponent } from './subreddit/list-subreddits/list-subred
 import { UserProfileComponent } from './auth/user-profile/user-profile.component';
 import { TokenInterceptor } from './token-interceptor';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     FontAwesomeModule,
-    EditorModule
+    EditorModule,
+    NgbModule
   ],
   providers: [
     {
